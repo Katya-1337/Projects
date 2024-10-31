@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Справочник Контрагентов Базылева</title>
+    <style>
+.tab {
+        display: none;
+}
+.tab.active {
+        display: block;
+        background-color: #ffd5f0;
+	padding: 20px;
+        border-radius: 15px;
+}
+input[type="text"],
+input[type="email"],
+input[type="number"],
+textarea,
+select,
+input[type="date"] {
+       margin-bottom: 10px;
+       width: 50%;
+       padding: 10px;
+       border: 1px solid #ccc;
+       border-radius: 5px;
+}
+input[type="radio"],
+input[type="checkbox"] {
+       margin-right: 10px;
+}
+button {
+        padding: 10px 20px;
+	margin-right: 10px;
+        background-color: pink;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+	border: 3px dotted #ffd5f0;
+}
+button:focus{
+	background-color: #ffd5f0;
+	border: 3px solid pink;
+}
+button:hover{
+ background-color: #f48db4;
+ border: 3px dotted pink;
+}
+h1,
+h2 {
+	color: #38ad76;
+}
+    </style>
+</head>
+<body>
+  <h1>Справочник контрагентов</h1>
+    <div class="tabs">
+        <button onclick="openTab('general')">Общие сведения</button>
+        <button onclick="openTab('economics')">Экономические сведения</button>
+        <button onclick="openTab('other')">Другие сведения</button>
+    </div><br><br>
+
+    <div id="general" class="tab active">
+        <h2>Общие сведения</h2>
+        <input type="text" placeholder="Название организации"><br><br>
+        <input type="email" placeholder="Email"><br><br>
+        <input type="text" placeholder="Телефон"><br><br>
+        <textarea placeholder="Адрес"></textarea><br><br><br>
+        <button>Сохранить</button>
+    </div>
+
+    <div id="economics" class="tab">
+        <h2>Экономические сведения</h2>
+        <div class="form-group">
+          <label for="contract-date">Дата основания организации:</label>
+          <input type="date" id="contract-date" name="contract-date" required>
+        </div><br>
+        <select>
+            <option value="" selected disabled>Выберите тип организации</option>
+            <option value="ООО">ООО</option>
+            <option value="АО">АО</option>
+            <option value="ИП">ИП</option>
+        </select><br><br>
+        <input type="number" placeholder="Годовой доход млн.руб"><br><br>
+      <div><label> Вид экономической организации компании: </label> <br><br>
+            <input type="radio" id="public" name="type" value="public">
+            <label for="public">Публичная организация</label>
+            <input type="radio" id="private" name="type" value="private">
+            <label for="private">Частная организация</label><br>
+	</div><br><br><br>
+        <button>Сохранить</button>
+    </div>
+
+    <div id="other" class="tab">
+        <h2>Другие сведения</h2>
+        <label for="mediators">Посредники:</label>
+        <select name=mediator size=6 multiple>
+            <option value="" selected disabled>Выберите организацию</option>
+            <option value=1>Лукойл</option>
+            <option value=2>Шишкин лес</option>
+            <option value=3>Фили Бейкер</option>
+            <option value=4>Ozon</option>
+            <option value=5>Nutella</option>
+            <option value=6>Adidas</option>
+            <option value=7>Colambia</option>
+        </select><br><br>
+        <div><br>
+        <input type="number" placeholder="Количество сотрудников"><br><br>
+        <label>Подвердите достоверность сведений:</label><br><br>
+            <input type="checkbox" id="agree">
+            <label for="agree">Подтвердить</label>
+        </div><br><br><br>
+        <button>Сохранить</button>
+    </div>
+
+    <script>
+        function openTab(tabName) {
+            var tabs = document.querySelectorAll('.tab');
+            tabs.forEach(function(tab) {
+                tab.classList.remove('active');
+            });
+            document.getElementById(tabName).classList.add('active');
+        }
+    </script>
+</body>
+</html>
