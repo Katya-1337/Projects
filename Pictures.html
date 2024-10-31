@@ -1,0 +1,74 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset=“UTF-8”>
+    <title> Задание 4 </title>
+<style>
+img {
+ width:300px;
+ height:200px;
+}
+button{
+  color:white;
+  background-color:pink;
+  border: 2px solid plum;
+  margin-right: 70px;
+}
+button:hover{
+ background-color: plum;
+ cursor: pointer;
+}
+#stop {
+    position:absolute;
+    left: 250px;
+}
+</style>
+</head>
+<body>
+
+<img src="https://pohod-v-gory.com/wp-content/uploads/2022/10/1-94.jpg" id="pic1">
+ </br>
+<button type="button" id="start" onclick="Flag()">
+    Старт </button>
+
+<button type="button" id="stop" onclick="clearInterval(d); d=undefined">
+    Стоп </button>
+ </br> </br>
+<button type="button" onclick="Time(1000)">
+    1 сек </button>
+
+<button type="button" onclick="Time(2000)">
+    2 сек </button>
+
+<button type="button" onclick="Time(3000)">
+    3 сек </button>
+
+<script>
+ var ind_img = 0;
+ var M_img = new Array('https://pohod-v-gory.com/wp-content/uploads/2022/10/1-94.jpg','https://blog.sletat.ru/wp-content/uploads/2020/04/vodopad-selyalandfoss1.jpg','https://visitjapan.ru/storage/app/media/Spot/6702/image/shizuoka1646-7.jpeg');
+ var d;
+
+ function NextImg(){
+  ind_img ++;
+  if (ind_img >= M_img.length)
+   ind_img = 0;
+  document.getElementById('pic1').src= M_img[ind_img];
+ }
+
+ function Flag(){
+  if (d) return;
+   d=setInterval('NextImg()',1000);
+ }
+
+ function Time(time){
+  if (d){
+   clearInterval(d);
+   d=undefined;
+  }
+  d=setInterval('NextImg()',time);
+ }
+
+</script>
+
+</body>
+</html>
