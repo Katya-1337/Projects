@@ -62,7 +62,7 @@ class RiotAPIFetcher(QtWidgets.QWidget):
 
     async def fetch_player_and_champion_info(self, game_name, tag_line, champion_name):
         # Replace with actual API Key
-        api_key = "RGAPI-0d829705-f293-49d1-b059-5e0a73f65ecf"
+        api_key = "DELETED THE KEY"
 
         try:
             # Fetch player PUUID
