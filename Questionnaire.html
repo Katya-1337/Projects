@@ -1,0 +1,96 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset=“UTF-8”>
+    <title> Размещение блоков </title>
+<style>
+div {
+  display: inline-block;
+  width: 150px;
+  height: 100px;
+  margin: 5px;
+  border: 3px solid pink;
+}
+button {
+ border: 2px solid plum;
+ border-radius: 20px;
+ color: white;
+ background-color: plum;
+ font-size: 18px;
+}
+button:hover {
+ border: 2px solid plum;
+ background-color: white;
+ color: plum;
+ cursor: pointer;
+}
+txt {
+ color: plum;
+ font-size: 20px;
+ font-family: calibri;
+}
+</style>
+</head>
+<body id="id_body">
+<txt> Сколько блоков сгенерировать : </txt> <input type="number" min=1> <button type="button" onclick="F1()"> Выполнить </button>
+    <br><br>
+<txt> Пронумеровать блоки : </txt> <button onclick = "F2()"> Выполнить </button>
+	<br><br>
+<txt> Взять в красную рамку : </txt> <input type="number" id="ID1" min=1> <button type="button" onclick="F3()"> Выполнить </button>
+	<br><br>
+<txt> Скрыть заданный блок : </txt> <input type="number" id="ID2" min=1> <button type="button" onclick="F4()"> Выполнить </button>
+	<br><br>
+<txt> Поменять местами блоки : </txt> <br><br>
+	<txt> Блок 1</txt> <input type="number" id="ID3" min=1> 
+		<txt> Блок 2</txt> <input type="number" id="ID4" min=1> <button type="button" onclick="F5()"> Выполнить </button>
+	<br><br>
+<script>
+function F1() {
+        let m1 = document.querySelector('input[type="number"]');
+        for (let i=0; i < m1.value; i++) {
+            let d = document.createElement("div");
+	    d.id ="i+1";
+            id_body.append(d);
+        }
+    }
+function F2() {
+   let m1 = document.querySelectorAll("div");
+   for (let i=0; i < m1.length; i++){
+    m1[i].innerHTML = i+1;
+   }
+ }
+
+function F3() {
+   let m1 = document.querySelectorAll("div");
+   const number = document.getElementById('ID1').value;
+   if (number > m1.length) {
+    alert ("Неверный номер блока");
+    return;
+   }
+   m1[number-1].style.border = "2px solid red";
+ }
+
+function F4() {
+   let m1 = document.querySelectorAll("div");
+   const number = document.getElementById('ID2').value;
+   if (number > m1.length) {
+    alert ("Неверный номер блока");
+    return;
+   }
+   m1[number-1].style.visibility = "hidden";
+ }
+
+function F5() {
+   let m1 = document.querySelectorAll("div");
+   const number_1 = document.getElementById('ID3').value;
+   const number_2 = document.getElementById('ID4').value;
+   if (number_1 > m1.length || number_2 > m1.length) {
+    alert ("Неверный номер блока");
+    return;
+   }
+    m1[number_1-1].innerHTML = number_2;
+    m1[number_2-1].innerHTML = number_1;
+ }
+</script>
+</body>
+</html>
