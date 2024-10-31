@@ -1,0 +1,224 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Задание 3.5</title>
+    <style>
+        .calculator {
+            background-color: black;
+            border-radius: 10px;
+            padding: 35px;
+        }
+
+        body {
+            font-family: calibri;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .display {
+            background: linear-gradient(grey, 30%, plum);
+            color: black;
+            font-size: 20px;
+            text-align: right;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            min-height: 30px;
+        }
+
+        button {
+            padding: 15px;
+            width: 70px;
+            font-size: 20px;
+            background: linear-gradient(grey, 30%, pink);
+            color: #fff;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button.equal {
+            grid-row: span 2;
+        }
+
+        .red {
+            background: linear-gradient(darkred, 30%, pink);
+        }
+
+        .blue {
+            background: linear-gradient(blue, 70%, pink);
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            grid-gap: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="calculator">
+    <div class="display" id="display">0</div>
+    <div class="buttons">
+        <button class="red" onclick="clearDisplay()">CE</button>
+        <button class="red" onclick="clearAll()">C</button>
+        <button onclick="deleteLast()">←</button>
+        <button onclick="reciprocal()">1/x</button>
+        <button class="blue" onclick="grandTotal()">GT</button>
+        <button onclick="memoryClear()">MC</button>
+        <button onclick="memoryRecall()">MR</button>
+        <button onclick="memoryAdd()">M+</button>
+        <button onclick="memorySubtract()">M-</button>
+        <button onclick="toggleSign()">+/-</button>
+        <button onclick="insertNumber('7')">7</button>
+        <button onclick="insertNumber('8')">8</button>
+        <button onclick="insertNumber('9')">9</button>
+        <button onclick="insertOperator('/')">÷</button>
+        <button onclick="squareRoot()">√</button>
+        <button onclick="insertNumber('4')">4</button>
+        <button onclick="insertNumber('5')">5</button>
+        <button onclick="insertNumber('6')">6</button>
+        <button onclick="insertOperator('*')">×</button>
+        <button onclick="percentage()">%</button>
+        <button onclick="insertNumber('1')">1</button>
+        <button onclick="insertNumber('2')">2</button>
+        <button onclick="insertNumber('3')">3</button>
+        <button onclick="insertOperator('-')">-</button>
+        <button class="equal" onclick="calculate()">=</button>
+        <button onclick="insertNumber('0')">0</button>
+        <button onclick="insertNumber('00')">00</button>
+        <button onclick="insertDot()">.</button>
+        <button onclick="insertOperator('+')">+</button>
+    </div>
+</div>
+
+<script>
+    let display = document.getElementById("display");
+    let currentInput = "0";
+    let operator = null;
+    let previousInput = null;
+    let grandTotalSum = 0;
+
+    function insertNumber(number) {
+        currentInput = currentInput === "0" ? number : currentInput + number;
+        updateDisplay();
+    }
+
+    function insertDot() {
+        if (!currentInput.includes(".")) {
+            currentInput += ".";
+        }
+        updateDisplay();
+    }
+
+    function updateDisplay() {
+        display.innerText = currentInput;
+    }
+
+    function clearDisplay() {
+        currentInput = "0";
+        updateDisplay();
+    }
+
+    function clearAll() {
+        currentInput = "0";
+        operator = null;
+        previousInput = null;
+        updateDisplay();
+    }
+
+    function deleteLast() {
+        currentInput = currentInput.slice(0, -1) || "0";
+        updateDisplay();
+    }
+
+    function insertOperator(op) {
+        if (operator && previousInput !== null) {
+            calculate();
+        }
+        operator = op;
+        previousInput = currentInput;
+        currentInput = "0";
+    }
+
+    function calculate() {
+        let result;
+        const prev = parseFloat(previousInput);
+        const curr = parseFloat(currentInput);
+        if (isNaN(prev) || isNaN(curr)) return;
+
+        switch (operator) {
+            case "+":
+                result = prev + curr;
+                break;
+            case "-":
+                result = prev - curr;
+                break;
+            case "*":
+                result = prev * curr;
+                break;
+            case "/":
+                result = prev / curr;
+                break;
+            default:
+                return;
+        }
+
+        currentInput = result.toString();
+        grandTotalSum += result;
+        operator = null;
+        previousInput = null;
+        updateDisplay();
+    }
+
+    function toggleSign() {
+        currentInput = (parseFloat(currentInput) * -1).toString();
+        updateDisplay();
+    }
+
+    function percentage() {
+        currentInput = (parseFloat(currentInput) / 100).toString();
+        updateDisplay();
+    }
+
+    function squareRoot() {
+        currentInput = Math.sqrt(parseFloat(currentInput)).toString();
+        updateDisplay();
+    }
+
+    function reciprocal() {
+        currentInput = (1 / parseFloat(currentInput)).toString();
+        updateDisplay();
+    }
+
+    function grandTotal() {
+        currentInput = grandTotalSum.toString();
+        updateDisplay();
+    }
+
+    let memory = 0;
+
+    function memoryClear() {
+        memory = 0;
+    }
+
+    function memoryRecall() {
+        currentInput = memory.toString();
+        updateDisplay();
+    }
+
+    function memoryAdd() {
+        memory += parseFloat(currentInput);
+    }
+
+    function memorySubtract() {
+        memory -= parseFloat(currentInput);
+    }
+</script>
+
+</body>
+</html>
