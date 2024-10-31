@@ -1,0 +1,110 @@
+<HTML>
+
+  <HEAD>
+    <TITLE> JSON Базылева </TITLE>
+<style>
+label {
+ color: salmon;
+ font-size: 20px;
+ font-family: calibri;
+}
+h1 {
+ color: pink;
+ font-family: calibri;
+}
+</style>
+  </HEAD>
+  <BODY>
+
+    <h1 align="left"> АНКЕТА </h1>
+
+    <FORM id="myform">
+
+      <label> Фамилия: </label> <br>
+      <INPUT TYPE=text NAME="s_name" placeholder="Введите фамилию"> <br>
+
+      <label> Имя: </label> <br>
+      <INPUT TYPE=text NAME="name" placeholder="Введите имя"> <br>
+
+      <label> Отчество: </label> <br>
+      <INPUT TYPE=text NAME="f_name" placeholder="Введите отчество"> <br>
+
+<br>
+      <label> Пол </label> <br>
+      <label> мужской </label>
+      <INPUT TYPE=radio NAME="sex" value="мужской">
+      <label> женский </label>
+      <INPUT TYPE=radio NAME="sex" value="женский"> <br>
+
+<br>
+      <label> Образование </label> <br>
+      <SELECT NAME="education" SIZE=1>
+  <OPTION VALUE=1 selected> Среднее </OPTION>
+  <OPTION VALUE=2> Среднее специальное </OPTION>
+  <OPTION VALUE=3> Высшее </OPTION>
+</SELECT>
+
+<br><br>
+      <label> Дата рождения </label> <br>
+      <INPUT TYPE=date NAME="birthday"> <br>
+
+<br><br>
+      <label> Автобиография </label> <br>
+      <TEXTAREA NAME=message ROWS=20 > Текст по умолчанию </TEXTAREA> 
+
+<br><br>
+      <INPUT TYPE=checkbox VALUE=yes>
+      <label> Согласен на обработку персональных данных </label>
+</FORM><br><br>
+
+      <input type="button" value="submit" onclick="generateJSON()"> 
+      <INPUT TYPE="reset" VALUE="clear form"> <br><br>
+
+      <input type="file" id="jsonFile" accept=".json"> <br><br>
+
+      <input type="button" value="Fill out the form from JSON" onclick="fillFormFromJSON()">
+
+<script>
+    function generateJSON() {
+      var form = document.getElementById("myform");
+      var formData = new FormData(form);
+      var jsonObject = {};
+
+      for (var [key, value] of formData.entries()) {
+        jsonObject[key] = value;
+      }
+
+      var jsonStr = JSON.stringify(jsonObject, null, 2);
+      var blob = new Blob([jsonStr], { type: "application/json" });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement("a");
+      a.href = url;
+      a.download = "formdata.json";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
+
+    function fillFormFromJSON() {
+      var fileInput = document.getElementById("jsonFile");
+      var file = fileInput.files[0];
+      var reader = new FileReader();
+
+      reader.onload = function(e) {
+        var json = JSON.parse(e.target.result);
+
+        for (var key in json) {
+          if (json.hasOwnProperty(key)) {
+            var input = document.getElementsByName(key)[0];
+            if (input) {
+              input.value = json[key];
+            }
+          }
+        }
+      };
+
+      reader.readAsText(file);
+    }
+  </script>
+  </BODY>
+</HTML>
