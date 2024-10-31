@@ -1,0 +1,94 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset=“UTF-8”>
+    <title> Wooohooo </title>
+<style>
+input {
+ border: 3px solid plum;
+ color: plum;
+ border-radius: 20px;
+ font-size: 24px;
+}
+input:focus {
+ border: 3px solid pink;
+}
+txt_1 {
+ color: plum;
+ font-size: 24px;
+ font-family: calibri;
+}
+txt_2 {
+ color: pink;
+ font-size: 24px;
+ font-family: calibri;
+}
+button {
+ width: 170px;
+ margin-right: 30px;
+ border: 2px dashed lightgreen;
+ border-radius: 20px;
+ color: white;
+ background-color: pink;
+ font-size: 24px;
+}
+button:hover {
+ background-color: lightgreen;
+ border: 2px dashed pink;
+ cursor: pointer;
+}
+</style>
+</head>
+<body>
+ <txt_1> Введите текст: </txt_1> <input type="text" id="ID1" placeholder="Input text">
+<br><br>
+
+ <button type="submit" onclick=" Best_func() ">
+    Submit </button>
+
+ <button type="reset" onclick=" "> 
+    Reset </button>
+<br><br>
+
+ <txt_1> Results: </txt_1>
+<br><br>
+
+<div> 
+ <txt_2> The number of words: <span id="ID2"> </span> </txt_2>
+<br>
+ <txt_2> The longest word: <span id="ID3"> </span> </txt_2>
+<br>
+ <txt_2> The shortest word:  <span id="ID4"> </span> </txt_2>
+<br>
+ <txt_2> Reversed text: <span id="ID5"> </span> </txt_2>
+</div>
+
+<script>
+
+ function Best_func(){
+ var input_txt= document.getElementById('ID1').value;
+  if (!input_txt || input_txt.length === 0) return 0;
+  var split_txt = input_txt.split(' ');
+  var wordsNumber = split_txt.length;
+  document.getElementById('ID2').innerHTML = wordsNumber;
+
+  var reversed_txt = split_txt.reverse();
+  document.getElementById('ID5').innerHTML = reversed_txt;
+
+  min_word = split_txt[0];
+  max_word = '';
+  for (let i = 0; i < split_txt.length; i++) {
+   if (split_txt[i].length > max_word.length){
+    max_word = split_txt[i];
+   }
+   if (split_txt[i].length < min_word.length){
+    min_word = split_txt[i];
+   }
+  document.getElementById('ID3').innerHTML = max_word;
+  document.getElementById('ID4').innerHTML = min_word;
+  }
+ }
+   
+</script>
+</body>
+</html>
